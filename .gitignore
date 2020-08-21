@@ -1,0 +1,14 @@
+repository/org/springframework/spring-expression/3.1.1.RELEASE/
+repository/org/springframework/spring-aop/4.3.14.RELEASE/
+repository/org/springframework/spring-asm/3.1.1.RELEASE/
+repository/org/springframework/spring-beans/3.1.1.RELEASE/
+repository/org/springframework/spring-beans/
+.metadata/
+*.classpath
+*.project
+*.springBeans
+01_start/target/
+01_start/.settings/
+02_DataBase/.settings/
+02_DataBase/target/
+repository/
