@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.dao.MemberDAO">
+	
+	<!-- 파라메터가 기본 타입이 아닐경우는 parameterType 지정 -->
+	<!-- 만약 email이 없으면 '없음'으로 insert -->
+	<insert id="join" parameterType="com.spring.dto.MemberDTO">
+		insert into member(id, pw, name, age, gender, email) 
+			<if test="!email.equals('')">
+				values(#{id}, #{pw},#{name}, #{age}, #{gender}, #{email})
+			</if>
+			<if test="email.equals('')">
+				values(#{id}, #{pw},#{name}, #{age}, #{gender}, '없음')
+			</if>
+	</insert>
+	
+	<!-- if else문 대체 -->
+	<!-- <choose>
+		<when  test="!email.equals('')">
+			values(#{id}, #{pw},#{name}, #{age}, #{gender}, #{email})
+		</when>
+		<otherwise>
+			values(#{id}, #{pw},#{name}, #{age}, #{gender}, '없음')
+		</otherwise>
+	</choose> -->
+	
+	<!-- where 태그는 where문이 바뀔 경우 사용하면 where를 생략 할 수 있다. -->
+	<!-- LIKE 검색시 %는 문자열로 감싸줘야 한다 -->
+	<!-- #{}은 변수이기 때문에 문자열과 합쳐야 한다. -->
+	<!-- db의 종류에 따라 문자열을 합치는 방식은 다르다. -->
+	<!-- 
+		[ORACLE] : '%'||#{keyword}||'%'
+	    [MYSQL] : CONCAT('%',#{keyword},'%')
+	    [MS-SQL] : '%'+#{keyword}+'%'
+	 -->
+	 
+	<select id="list" parameterType="hashMap" resultType="com.spring.dto.MemberDTO">
+		select * from member 
+		<where>
+			<if test="!keyword.equals('') and opt== 'id'">id LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and opt== 'name'">name LIKE '%'||#{keyword}||'%'</if>
+			<if test="!keyword.equals('') and opt== 'email'">email LIKE '%'||#{keyword}||'%'</if>
+		</where>
+	</select>
+	<!-- set 없이 if 만 사용할 경우 콤마(,)에 의한 오류가 발생 한다. -->
+	<update id="update" parameterType="hashMap">
+		update member
+		<set>
+			<if test="!pw.equals('')">pw=#{pw},</if>
+			<if test ="!name.equals('')">name=#{name},</if>
+			<if test ="!email.equals('')">email=#{email}</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- <select id="multi" parameterType="list" resultType="com.spring.dto.MemberDTO">
+		select * from member where 
+		<foreach collection="list" item="item" separator="or">
+			name = #{item}
+		</foreach>	
+	</select> -->
+	
+	<select id="multi" parameterType="list" resultType="com.spring.dto.MemberDTO">
+		select * from member where name in
+		<foreach collection="list" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+	
+</mapper>

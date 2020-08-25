@@ -12,3 +12,7 @@ repository/org/springframework/spring-beans/
 02_DataBase/.settings/
 02_DataBase/target/
 repository/
+03_Mybatis/.settings/
+03_Mybatis/target/
+04_Dynamic/.settings/
+04_Dynamic/target/

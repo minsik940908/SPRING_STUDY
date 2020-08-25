@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+
+<!-- 이 XML을 어떤 interface하고 연결 할 것인가 -->
+<mapper namespace="com.spring.dao.BbsDAO">
+	<!-- select idx, user_name, subject, reg_date from bbs order by idx desc -->
+	<!-- id는 실행할 메소드 이름 / resultType=반환할 타입 -->
+	<select id="list" resultType="com.spring.dto.BbsDTO">
+		select idx, user_name, subject, reg_date from bbs order by idx desc
+	</select>
+	
+	<!-- param1, param2, ... 형식으로 사용 가능 -->
+	<delete id="delete">
+		delete from bbs where idx=#{param1}
+	</delete>
+	
+	<select id="detail" resultType="com.spring.dto.BbsDTO">
+		select * from bbs where idx=#{param1}
+	</select>
+	
+	<insert id="write">
+		insert into bbs(idx, user_name,subject,content,bhit) values(bbs_seq.NEXTVAL, #{param1}, #{param2}, #{param3},0)
+	</insert>
+</mapper>
