@@ -40,20 +40,20 @@ public class HomeController {
 	}
 	
    @RequestMapping(value = "/update", method = RequestMethod.POST)
-	public ModelAndView update(@RequestParam HashMap<String, String> params) {
+	public void update(@RequestParam HashMap<String, String> params) {
 		logger.info("params : {}" + params);
-		return service.update(params);
+		 service.update(params);
 	}
    
    @RequestMapping(value = "/multi", method = RequestMethod.POST)
-	public ModelAndView multi(@RequestParam String[] userName) {
+	public void multi(@RequestParam String[] userName) {
 	
 		for(String name : userName) {
 			logger.info("userName : " +name);
 		}
 		
 		
-		return service.multi(userName);
+		 service.multi(userName);
 	}
 	
 }
