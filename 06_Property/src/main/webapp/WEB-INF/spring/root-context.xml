@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- Properties : Map interface를 구현받았다.(key, value 구조)
+			파일형태로 저장이 된다.(확장자 properties)
+			한글을 쓰지 않는게 좋다.(한글은 다 깨져서 보인다.)
+			Spring의 설정값을 저장할 때 사용한다.
+			장점 : 저장하고 불러오기가 쉽다.
+			단점 : 보안이 취약하다. -->
+	
+	<!-- properties 사용을 위한 설정 -->
+	   <!-- properties 사용을 위한 설정 -->
+   <bean id="propertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="locations">
+         <list>
+            <value>classpath:props/*.properties</value>
+         </list>
+      </property>
+   </bean>
+   
+   <!-- @Value라는 어노테이션으로 properties내의 값을 부를 수 있다. -->
+   <util:properties id="config" location="classpath:props/manager.properties"/>
+</beans>
