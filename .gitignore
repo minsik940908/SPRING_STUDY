@@ -21,3 +21,11 @@ repository/
 06_Property/.settings/
 06_Property/target/classes/kr/co/goodee/dao/login_mapper.xml
 06_Property/target/
+07_AjaxSample/.settings/
+07_AjaxSample/target/
+08_RestRequest/.settings/
+08_RestRequest/target/
+09_RestfulRequest/.settings/
+09_RestfulRequest/target/
+10_RealTime/.settings/
+10_RealTime/target/
