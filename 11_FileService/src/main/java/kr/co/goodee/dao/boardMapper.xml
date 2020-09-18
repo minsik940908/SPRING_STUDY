@@ -5,4 +5,28 @@
 	<select id="list" resultType="board">
 		select * from bbs order by idx desc
 	</select>
+	
+	<!-- 
+		등록한 글의 idx를 가져오기
+		parameterType : "사용할 빈의 위치"
+		useGenerateKeys : 방금 생성한 PK 가져올지 여부
+		keyProperty : PK가 되는 빈의 변수명 
+		keyColumn : PK 컬럼
+	 -->
+	<insert id="write" parameterType="board" useGeneratedKeys="true" keyProperty="idx" keyColumn="idx">
+		insert into bbs(idx, user_name, subject, content, bhit) values(bbs_seq.NEXTVAL, #{user_name}, #{subject}, #{content}, 0)
+	</insert>
+	
+	<insert id="wrtieFile">
+		insert into photo(fileidx, idx, orifilename, newfilename) values(photo_seq.NEXTVAL, #{param1}, #{param2}, #{param3})
+	</insert>
+	
+	<select id="detail" resultType="board">
+		/*상세 보기 정보 가져 오기*/
+		select * from bbs where idx=#{param1}
+	</select>
+	
+	<select id="fileList" resultType="files">
+		select * from photo where idx=#{param1}
+	</select>
 </mapper>

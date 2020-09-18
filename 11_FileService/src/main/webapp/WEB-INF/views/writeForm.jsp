@@ -46,7 +46,7 @@
 				<th>내용</th>
 				<td>
 					<div id="editable" contenteditable="true"></div>
-					<input type="hidden" name="content" value=""/>
+					<input id="content" type="hidden" name="content" value=""/>
 				</td>
 			</tr>
 			<tr>
@@ -57,15 +57,44 @@
 				</td>
 			</tr>
 			<tr>
-				<td colspan="2"><input type="submit" value="저장"/></td>
+				<td colspan="2"><input type="button" onclick="save()" value="저장"/></td>
 			</tr>
 		</table>
 	</form>
 </body>
 <script>
 
+	function save(){
+		$("#editable input[type='button']").remove();//버튼을 먼저 삭제 해 주고
+		$("#content").val($("#editable").html());//div안의 내용을 input에 저장
+		$("form").submit();//서버에 전송
+	}
+
 	function fileUp(){
 		var myWin = window.open('uploadForm','파일업로드','width=400','height=100');
+	}
+	
+	//파일 삭제
+	function del(elem){
+		console.log(elem);
+		var fileName = elem.id.split("/")[1];
+		console.log(fileName);
+		$.ajax({
+			url:'fileDelete',
+			type:'get',
+			data:{'fileName':fileName},
+			dataType:'JSON',
+			success:function(data){
+				console.log(data);
+				if(data.success == 1){//성공
+					$(elem).prev().remove();//클릭한 버튼 기준 앞에 있는놈 삭제
+					$(elem).remove();//삭제 버튼 삭제
+				}
+			},
+			error:function(e){
+				console.log(e);
+			}
+		});
 	}
 </script>
 </html>

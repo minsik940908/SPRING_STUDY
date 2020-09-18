@@ -34,7 +34,7 @@
 				<c:forEach items="${list}" var="bbs">
 					<tr>
 						<td>${bbs.idx}</td>
-						<td>${bbs.subject}</td>
+						<td><a href="detail?idx=${bbs.idx}">${bbs.subject}</a></td>
 						<td>${bbs.user_name}</td>
 						<td>${bbs.reg_date}</td>
 						<td>${bbs.bhit}</td>

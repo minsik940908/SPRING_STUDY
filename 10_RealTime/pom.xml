@@ -74,7 +74,7 @@
 		    <version>1.2</version>
 		</dependency>			
 		
-		<!-- jackson 이 없으면 @RestController 를 사용 해도 클라이언트로 json 형태로 변환이 되지 않는다. -->
+		<!-- jackson 이 없으면 @RestController 를 사용 해도 클라이언트로 json 형태로 변환이 되지 않는다.(ResponseBody도) -->
 		<!-- jackson-databind-->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>

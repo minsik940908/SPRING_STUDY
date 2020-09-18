@@ -25,7 +25,6 @@
 			var elem = window.opener.document.getElementById('editable');//writeForm의 id = editable을 부른다.
 			elem.innerHTML += content;//그리고 그 안에 content를 쓴다.
 			self.close();//현재 창은 닫는다.
-			
 		}
 		
 		function fileView(elem){
