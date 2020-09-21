@@ -31,3 +31,5 @@ repository/
 10_RealTime/target/
 11_FileService/.settings/
 11_FileService/target/
+.settings
+target
