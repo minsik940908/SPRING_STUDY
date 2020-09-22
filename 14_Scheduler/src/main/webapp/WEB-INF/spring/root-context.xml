@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- properties 사용을 위한 설정 -->
+	<bean id="propertyConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:props/*.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- DB 에 관련된 내용 설정 -->
+	<!-- DataSource 작성(접속정보) -->
+	<bean name="datasource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${Globals.DriverClassName}"/>
+		<property name="url" value="${Globals.Url}"/>
+		<property name="username" value="${Globals.UserName}"/>
+		<property name="password" value="${Globals.Password}"/>
+	</bean>	
+	
+	<!-- mybatis -->	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="datasource"/>		<!-- datasource 가져오기 -->
+		<property name="mapperLocations" value="classpath:kr/co/goodee/dao/*.xml"/>		<!-- 쿼리문이 있는 장소를 지정 -->
+		<property name="environment" value="classpath:/config/pool-config.xml"/>
+	</bean>
+		
+	<!-- 마이바티스를 별다른 코드 없이 사용할수 있도록 해 주는 설정 -->
+	<mybatis-spring:scan base-package="kr.co.goodee"/>		
+		
+</beans>
